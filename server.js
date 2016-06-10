@@ -7,6 +7,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.listen((process.env.PORT || 3000));
 
+// Server frontpage
+app.get('/', function (req, res) {
+    res.send('Mark 4');
+});
 
 // Facebook Webhook
 app.get('/webhook', function (req, res) {
