@@ -15,6 +15,7 @@ app.get('/', function (req, res) {
 // Facebook Webhook
 app.get('/webhook', function (req, res) {
     if (req.query['hub.verify_token'] === 'ultramagnus_prime') {
+        console.log('works');
         res.send(req.query['hub.challenge']);
     } else {
         res.send('Invalid verify token');
