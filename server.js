@@ -45,10 +45,3 @@ var server = http.createServer(function(request, response) {
 var port_number = server.listen(process.env.PORT || 3000);
 
 
-server.get('/webhook', function (req, res) {
-  if (req.query['hub.verify_token'] === 'ultramagnus_prime') {
-    res.send(req.query['hub.challenge']);
-  } else {
-    res.send('Error, wrong validation token');    
-  }
-});
