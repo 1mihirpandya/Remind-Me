@@ -9,14 +9,12 @@ app.listen((process.env.PORT || 3000));
 
 // Server frontpage
 app.get('/', function (req, res) {
-    
+    res.send('Mihir Pandya');
 });
 
 // Facebook Webhook
 app.get('/webhook', function (req, res) {
-    console.log('works');
     if (req.query['hub.verify_token'] === 'ultramagnus_prime') {
-        console.log('works');
         res.send(req.query['hub.challenge']);
     } else {
         res.send('Invalid verify token');
