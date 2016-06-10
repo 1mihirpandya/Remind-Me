@@ -36,7 +36,7 @@ app.post('/webhook', function (req, res)
         if (event.message && (event.message.text === 'hello')) 
         {
             user_data[String(event.sender.id)] = [];
-            sendMessage(event.sender.id, "To add something to you list of reminders, begin your message with the word 'add'. To remove something from your list of reminders, begin your message with the word 'remove'.");
+            sendMessage(event.sender.id, {text: "To add something to you list of reminders, begin your message with the word 'add'. To remove something from your list of reminders, begin your message with the word 'remove'."});
         }
 //        else if (event.message && event.message.text) 
 //        {
