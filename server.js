@@ -5,7 +5,7 @@ var app = express();
 
 
 
-var user_data = {};
+//var user_data = {};
 
 
 
@@ -35,7 +35,7 @@ app.post('/webhook', function (req, res)
         var event = events[i];
         if (event.message && (event.message.text === 'hello')) 
         {
-            user_data[String(event.sender.id)] = [];
+            //user_data[String(event.sender.id)] = [];
             sendMessage(event.sender.id, {text: "To add something to you list of reminders, begin your message with the word 'add'. To remove something from your list of reminders, begin your message with the word 'remove'."});
         }
 //        else if (event.message && event.message.text) 
@@ -50,14 +50,6 @@ app.post('/webhook', function (req, res)
                 user_data[String(event.sender.id)].push((event.message.text).substr(4));
                 sendMessage(event.sender.id, "The item has been added!");
             }   
-            else if (event.message && (word.toLowerCase === 'remove')) 
-            {
-                sendMessage(event.sender.id, "The item has been removed!");
-            } 
-            else if (event.message && (word.toLowerCase === 'list')) 
-            {
-                sendMessage(event.sender.id, "The item has been added!");
-            }  
         }
     }
     res.sendStatus(200);
