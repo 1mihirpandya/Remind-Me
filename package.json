@@ -1,0 +1,8 @@
+{
+  "name" : "remind_me",
+  "version" : "0.0.1",
+  "description" : "reminding system",
+  "dependencies" : {
+    "mime" : "~1.2.7"
+  }
+}
