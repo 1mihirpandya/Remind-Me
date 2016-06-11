@@ -47,7 +47,14 @@ app.get('/webhook', function (req, res) {
 
 var items = [];
 
-
+function convert_to_list()
+{
+    listed = "";
+    for (i = 0; i < items.length; i++)
+    {
+        listed = listed + items[i] + "\n"; 
+    }
+}
 
 
 
@@ -56,10 +63,16 @@ app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
     for (i = 0; i < events.length; i++) {
         var event = events[i];
-        if (event.message && (event.message.text === "add")) 
+        if (event.message && event.message.text) 
         {
-            items.push("rand event");
-            sendMessage(event.sender.id, {text: items[0] + ""});
+            
+            
+            if ((event.message.text).substr(0,3) === "add")
+            {
+            items.push(event.message.text);
+            to_do_list = convert_to_list()
+            sendMessage(event.sender.id, {text: to_do_list});
+            }
         }
     }
     res.sendStatus(200);
