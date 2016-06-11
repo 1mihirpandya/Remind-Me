@@ -69,9 +69,11 @@ app.post('/webhook', function (req, res) {
             
             if ((event.message.text).substr(0,3) === "add")
             {
+            sendMessage(event.sender.id, {text: "entered first loop"});
             items.push(event.message.text);
             to_do_list = convert_to_list()
-            sendMessage(event.sender.id, {text: to_do_list});
+            sendMessage(event.sender.id, {text: "entered first loop"});
+            sendMessage(event.sender.id, {text: to_do_list + ""});
             }
         }
     }
