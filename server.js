@@ -54,6 +54,7 @@ function convert_to_list()
     {
         listed = listed + items[i] + "\n"; 
     }
+    return listed;
 }
 
 
