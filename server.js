@@ -52,7 +52,7 @@ function convert_to_list()
     listed = "";
     for (i = 0; i < items.length; i++)
     {
-        listed = listed + items[i] + "\n"; 
+        listed = String(i-1) + listed + items[i] + "\n"; 
     }
     return listed;
 }
@@ -70,11 +70,28 @@ app.post('/webhook', function (req, res) {
             
             if ((event.message.text).substr(0,3) === "add")
             {
-            sendMessage(event.sender.id, {text: "entered first loop"});
-            items.push(event.message.text);
-            to_do_list = convert_to_list()
-            sendMessage(event.sender.id, {text: "entered first loop"});
-            sendMessage(event.sender.id, {text: to_do_list + ""});
+                items.push((event.message.text).substr(3));
+                to_do_list = convert_to_list()
+                sendMessage(event.sender.id, {text: to_do_list + ""});
+            }
+            else if ((event.message.text).substr(0,6) === "remove")
+            {
+                index = ((event.message.text).split(" "))[1];
+                if (index < items.length) 
+                {
+                    items.splice(index, 1);
+                    to_do_list = convert_to_list()
+                    sendMessage(event.sender.id, {text: to_do_list + ""});
+                }
+                else
+                {
+                    sendMessage(event.sender.id, {text: "Sorry! That item never existed"});
+                }
+            }
+            else if ((event.message.text).trim() === "list")
+            {
+                to_do_list = convert_to_list();
+                sendMessage(event.sender.id, {text: to_do_list + ""});
             }
         }
     }
