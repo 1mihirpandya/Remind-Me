@@ -125,7 +125,7 @@ app.post('/webhook', function (req, res) {
             else if (((event.message.text).trim()).substr(0,8) === "describe")
             {
                 index = parseInt(((event.message.text).split(" "))[1]) - 1;
-                item_summary = convert_to_summary();
+                item_summary = convert_to_summary(index);
                 sendMessage(event.sender.id, {text: item_summary + ""});
             }
         }
