@@ -90,17 +90,18 @@ app.post('/webhook', function (req, res) {
         if (event.message && event.message.text) 
         {
             sendMessage(event.sender.id, {text: "testing"});
-            if ((event.message.text).substr(0,15) === "add summary for")
-            {
-                index = parseInt(((event.message.text).split(" "))[1]) - 1;
-                item_descriptions[index].push(((event.message.text).substr((event.message.text).indexOf(":"))).trim());
-                sendMessage(event.sender.id, {text: "Summary added!"});
-            }
-            else if ((event.message.text).substr(0,3) === "add")
+//            if ((event.message.text).substr(0,15) === "add summary for")
+//            {
+//                index = parseInt(((event.message.text).split(" "))[1]) - 1;
+//                item_descriptions[index].push(((event.message.text).substr((event.message.text).indexOf(":"))).trim());
+//                sendMessage(event.sender.id, {text: "Summary added!"});
+//            }
+//            else 
+                if ((event.message.text).substr(0,3) === "add")
             {
                 sendMessage(event.sender.id, {text: "testing"});
                 items.push((event.message.text).substr(3));
-                item_descriptions.push([]);
+                //item_descriptions.push([]);
                 to_do_list = convert_to_list()
                 sendMessage(event.sender.id, {text: "testing"});
                 sendMessage(event.sender.id, {text: "Item added!"});
