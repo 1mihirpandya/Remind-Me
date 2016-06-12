@@ -55,13 +55,7 @@ app.post('/webhook', function (req, res) {
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         if (event.message && event.message.text) {
-            if ((event.message.text).substr(0,15) === "add summary for")
-            {
-                index = parseInt(((event.message.text).substr(((event.message.text).indexOf("for") + 3),((event.message.text).indexOf(":"))).trim())) - 1;
-                item_descriptions[index].push(((event.message.text).substr((event.message.text).indexOf(":") + 1)).trim());
-                sendMessage(event.sender.id, {text: "Summary added!"});
-            }
-            else if ((event.message.text).substr(0,3) === "add")
+            if ((event.message.text).substr(0,3) === "add")
             {
                 sendMessage(event.sender.id, {text: "testing"});
                 items.push((event.message.text).substr(3));
