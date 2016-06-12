@@ -41,8 +41,6 @@ app.get('/webhook', function (req, res) {
 
 
 
-//myJson = require("./filename.json");
-
     request({
         url: 'https://graph.facebook.com/v2.6/<PAGE_ID>/thread_settings?access_token=<PAGE_ACCESS_TOKEN>',
         setting_type:"call_to_actions",
@@ -59,6 +57,7 @@ app.get('/webhook', function (req, res) {
 
 
 var items = [];
+var item_descriptions = [];
 
 function convert_to_list()
 {
@@ -72,6 +71,16 @@ function convert_to_list()
 }
 
 
+function convert_to_summary(val)
+{
+    listed = "";
+    for (i = 0; i < item_descriptions[val].length; i++)
+    {
+        listed = listed "-" + item_descriptions[val][i] + "\n"; 
+    }
+    return listed;
+}
+
 
 
 app.post('/webhook', function (req, res) {
@@ -81,31 +90,43 @@ app.post('/webhook', function (req, res) {
         if (event.message && event.message.text) 
         {
             
-            
-            if ((event.message.text).substr(0,3) === "add")
+            if ((event.message.text).substr(0,15) === "add summary for")
+            {
+                index = parseInt(((event.message.text).split(" "))[1]) - 1;
+                item_descriptions[index].push(((event.message.text).substr((event.message.text).indexOf(":"))).trim());
+                sendMessage(event.sender.id, {text: "Summary added!"});
+            }
+            else if ((event.message.text).substr(0,3) === "add")
             {
                 items.push((event.message.text).substr(3));
+                item_descriptions.push([]);
                 to_do_list = convert_to_list()
-                sendMessage(event.sender.id, {text: to_do_list + ""});
+                sendMessage(event.sender.id, {text: "Item added!"});
             }
-            else if ((event.message.text).substr(0,6) === "remove")
+            else if (((event.message.text).trim()).substr(0,6) === "remove")
             {
                 index = parseInt(((event.message.text).split(" "))[1]) - 1;
                 if (index < items.length) 
                 {
                     items.splice(index, 1);
                     to_do_list = convert_to_list()
-                    sendMessage(event.sender.id, {text: to_do_list + ""});
+                    sendMessage(event.sender.id, {text: "Item removed!"});
                 }
                 else
                 {
-                    sendMessage(event.sender.id, {text: "Sorry! That item never existed"});
+                    sendMessage(event.sender.id, {text: "Sorry! That item doesn't exist."});
                 }
             }
-            else if ((event.message.text).trim() === "list")
+            else if (((event.message.text).trim()).trim() === "list")
             {
                 to_do_list = convert_to_list();
                 sendMessage(event.sender.id, {text: to_do_list + ""});
+            }
+            else if (((event.message.text).trim()).substr(0,8) === "describe")
+            {
+                index = parseInt(((event.message.text).split(" "))[1]) - 1;
+                item_summary = convert_to_summary();
+                sendMessage(event.sender.id, {text: item_summary + ""});
             }
         }
     }
