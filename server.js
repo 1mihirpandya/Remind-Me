@@ -30,6 +30,10 @@ var item_descriptions = [];
 function convert_to_list()
 {
     listed = "";
+    if (items.length == 0)
+        {
+            return "Empty list!"
+        }
     for (i = 0; i < items.length; i++)
     {
         item_number = i + 1;
@@ -48,9 +52,7 @@ app.post('/webhook', function (req, res) {
         if (event.message && event.message.text) {
             if ((event.message.text).substr(0,3) === "add")
             {
-                sendMessage(event.sender.id, {text: "testing"});
                 items.push((event.message.text).substr(3));
-                sendMessage(event.sender.id, {text: "testing"});
                 sendMessage(event.sender.id, {text: "Item added!"});
             }
             else if (((event.message.text).trim()).substr(0,6) === "remove")
