@@ -27,7 +27,34 @@ app.post('/webhook', function (req, res) {
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         if (event.message && event.message.text) {
-            sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
+            if ((event.message.text).substr(0,3) === "add")
+            {
+                sendMessage(event.sender.id, {text: "testing"});
+                items.push((event.message.text).substr(3));
+                //item_descriptions.push([]);
+                to_do_list = convert_to_list()
+                sendMessage(event.sender.id, {text: "testing"});
+                sendMessage(event.sender.id, {text: "Item added!"});
+            }
+            else if (((event.message.text).trim()).substr(0,6) === "remove")
+            {
+                index = parseInt(((event.message.text).split(" "))[1]) - 1;
+                if (index < items.length) 
+                {
+                    items.splice(index, 1);
+                    to_do_list = convert_to_list()
+                    sendMessage(event.sender.id, {text: "Item removed!"});
+                }
+                else
+                {
+                    sendMessage(event.sender.id, {text: "Sorry! That item doesn't exist."});
+                }
+            }
+            else if (((event.message.text).trim()).trim() === "list")
+            {
+                to_do_list = convert_to_list();
+                sendMessage(event.sender.id, {text: to_do_list + ""});
+            }
         }
     }
     res.sendStatus(200);
