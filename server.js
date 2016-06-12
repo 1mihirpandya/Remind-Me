@@ -43,6 +43,19 @@ app.get('/webhook', function (req, res) {
 
 //myJson = require("./filename.json");
 
+    request({
+        url: 'https://graph.facebook.com/v2.6/<PAGE_ID>/thread_settings?access_token=<PAGE_ACCESS_TOKEN>',
+        setting_type:"call_to_actions",
+        thread_state:"new_thread",
+        call_to_actions:[
+        {
+            message:{
+                text:'Welcome to RemindMe! To add something to your to-do list, simply write "add my-action". To remove something from your list, write "remove action-number". To list your to-do list, write "list".'
+            }
+        }]
+    });
+
+
 
 
 var items = [];
