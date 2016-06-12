@@ -67,7 +67,7 @@ app.post('/webhook', function (req, res) {
             
             
             
-            else if ((event.message.text).substr(0,3) === "add")
+            if ((event.message.text).substr(0,3) === "add")
             {
                 items.push((event.message.text).substr(3));
                 item_descriptions.push([null]);
