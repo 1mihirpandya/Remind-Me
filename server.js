@@ -53,7 +53,7 @@ function convert_to_list()
     for (i = 0; i < items.length; i++)
     {
         item_number = i + 1;
-        listed = listed + String(item_number) + items[i] + "\n"; 
+        listed = listed + String(item_number) + "." + items[i] + "\n"; 
     }
     return listed;
 }
