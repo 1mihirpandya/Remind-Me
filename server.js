@@ -39,15 +39,6 @@ function convert_to_list()
 }
 
 
-function convert_to_summary(val)
-{
-    listed = "";
-    for (i = 0; i < item_descriptions[val].length; i++)
-    {
-        listed = listed "-" + item_descriptions[val][i] + "\n"; 
-    }
-    return listed;
-}
 
 
 app.post('/webhook', function (req, res) {
@@ -59,8 +50,6 @@ app.post('/webhook', function (req, res) {
             {
                 sendMessage(event.sender.id, {text: "testing"});
                 items.push((event.message.text).substr(3));
-                //item_descriptions.push([]);
-                to_do_list = convert_to_list()
                 sendMessage(event.sender.id, {text: "testing"});
                 sendMessage(event.sender.id, {text: "Item added!"});
             }
@@ -70,7 +59,6 @@ app.post('/webhook', function (req, res) {
                 if (index < items.length) 
                 {
                     items.splice(index, 1);
-                    to_do_list = convert_to_list()
                     sendMessage(event.sender.id, {text: "Item removed!"});
                 }
                 else
