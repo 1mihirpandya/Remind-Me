@@ -52,7 +52,8 @@ function convert_to_list()
     listed = "";
     for (i = 0; i < items.length; i++)
     {
-        listed = String(i-1) + listed + items[i] + "\n"; 
+        item_number = i + 1;
+        listed = String(item_number) + listed + items[i] + "\n"; 
     }
     return listed;
 }
@@ -76,7 +77,7 @@ app.post('/webhook', function (req, res) {
             }
             else if ((event.message.text).substr(0,6) === "remove")
             {
-                index = ((event.message.text).split(" "))[1];
+                index = parseInt(((event.message.text).split(" "))[1]) - 1;
                 if (index < items.length) 
                 {
                     items.splice(index, 1);
