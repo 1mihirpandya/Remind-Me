@@ -41,17 +41,17 @@ app.get('/webhook', function (req, res) {
 
 
 
-    request({
-        url: 'https://graph.facebook.com/v2.6/<PAGE_ID>/thread_settings?access_token=<PAGE_ACCESS_TOKEN>',
-        setting_type:"call_to_actions",
-        thread_state:"new_thread",
-        call_to_actions:[
-        {
-            message:{
-                text:'Welcome to RemindMe! To add something to your to-do list, simply write "add my-action". To remove something from your list, write "remove action-number". To list your to-do list, write "list".'
-            }
-        }]
-    });
+//    request({
+//        url: 'https://graph.facebook.com/v2.6/<PAGE_ID>/thread_settings?access_token=<PAGE_ACCESS_TOKEN>',
+//        setting_type:"call_to_actions",
+//        thread_state:"new_thread",
+//        call_to_actions:[
+//        {
+//            message:{
+//                text:'Welcome to RemindMe! To add something to your to-do list, simply write "add my-action". To remove something from your list, write "remove action-number". To list your to-do list, write "list".'
+//            }
+//        }]
+//    });
 
 
 
@@ -89,7 +89,7 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) 
         {
-            
+            sendMessage(event.sender.id, {text: "testing"});
             if ((event.message.text).substr(0,15) === "add summary for")
             {
                 index = parseInt(((event.message.text).split(" "))[1]) - 1;
@@ -98,9 +98,11 @@ app.post('/webhook', function (req, res) {
             }
             else if ((event.message.text).substr(0,3) === "add")
             {
+                sendMessage(event.sender.id, {text: "testing"});
                 items.push((event.message.text).substr(3));
                 item_descriptions.push([]);
                 to_do_list = convert_to_list()
+                sendMessage(event.sender.id, {text: "testing"});
                 sendMessage(event.sender.id, {text: "Item added!"});
             }
             else if (((event.message.text).trim()).substr(0,6) === "remove")
