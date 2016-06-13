@@ -112,13 +112,21 @@ app.post('/webhook', function (req, res) {
             }
             else if (((event.message.text).trim()).substr(0,5) === "clear")
             {
-                items = [];
-                item_descriptions = [];
-                sendMessage(event.sender.id, {text: to_do_list + "To-do list cleared!"});
+                if (items.length == 0)
+                    {
+                        sendMessage(event.sender.id, {text: "The to-do list is already empty."});
+                    }
+                else
+                {
+                    items = [];
+                    item_descriptions = [];
+                    sendMessage(event.sender.id, {text: "To-do list cleared!"});
+                }
+                
             }
             else
                 {
-                    sendMessage(event.sender.id, {text: to_do_list + "Sorry! Your command was not recognized!"});
+                    sendMessage(event.sender.id, {text: to_do_list + "Sorry! Your command was not recognized."});
                 }
         }
     }
