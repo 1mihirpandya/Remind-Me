@@ -75,7 +75,10 @@ app.post('/webhook', function (req, res) {
             
             
             
-            
+            else if ((event.message.text).substr(0,3) === "instructions")
+                {
+                    sendMessage(event.sender.id, {text: "To add an item to your to-do list, simply type 'add' before the item's title. To remove an item from your to-do list, simply type 'remove' followed by the item's number on the list. You can see the entire list and their corresponding numbers by typing 'list'. To add a description for an item, type 'add summary for' followed by the item number and a colon. To find out what the description for an item is, type 'describe' followed by the item number. To clear the entire list, type 'clear'."});
+                }
             else if ((event.message.text).substr(0,3) === "add")
             {
                 items.push((event.message.text).substr(3));
@@ -107,6 +110,16 @@ app.post('/webhook', function (req, res) {
                 to_do_list = convert_to_summary(index);
                 sendMessage(event.sender.id, {text: to_do_list + ""});
             }
+            else if (((event.message.text).trim()).substr(0,5) === "clear")
+            {
+                items = [];
+                item_descriptions = [];
+                sendMessage(event.sender.id, {text: to_do_list + "To-do list cleared!"});
+            }
+            else
+                {
+                    sendMessage(event.sender.id, {text: to_do_list + "Sorry! Your command was not recognized!"});
+                }
         }
     }
     res.sendStatus(200);
