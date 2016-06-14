@@ -141,7 +141,7 @@ app.post('/webhook', function (req, res) {
             }
             else
                 {
-                    sendMessage(event.sender.id, {text: to_do_list + "Sorry! Your command was not recognized."});
+                    sendMessage(event.sender.id, {text: "Sorry! Your command was not recognized."});
                 }
         }
     }
