@@ -90,16 +90,9 @@ app.post('/webhook', function (req, res) {
             else if ((event.message.text).substr(0,3) === "add")
             {
                 var addition = (event.message.text).substr(3);
-                if (!(addition in items))
-                    {
                         items.push(addition);
                         item_descriptions.push([]);
                         sendMessage(event.sender.id, {text: "Item added!"});
-                    }
-                else
-                    {
-                        sendMessage(event.sender.id, {text: "The item already exists."});
-                    }
             }
             else if (((event.message.text).trim()).substr(0,6) === "remove")
             {
