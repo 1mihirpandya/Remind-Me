@@ -24,46 +24,10 @@ app.get('/webhook', function (req, res) {
 
 var items = [];
 var item_descriptions = [];
-                    var item1 = "You can add items onto your to-do list and descriptions for each item. ";
-                    var item2 = "To add an item to your to-do list, simply type 'add' before the item's title. ";
-                    var item3 = "To remove an item from your to-do list, simply type 'remove' followed by the item's number on the list. ";
-                    var item4 = "You can see the entire list and their corresponding numbers by typing 'list'. ";
-                    var item5 = "To add a description for an item, type 'add summary for' followed by the item number and a colon. ";
-                    var item6 = "To find out what the description for an item is, type 'describe' followed by the item number. ";
-                    var item7 = "To clear the entire list, type 'clear'.";
+                    var instruction_list = ["You can add items onto your to-do list and descriptions for each item. ", "To add an item to your to-do list, simply type 'add' before the item's title. ", "To remove an item from your to-do list, simply type 'remove' followed by the item's number on the list. ", "You can see the entire list and their corresponding numbers by typing 'list'. ", "To add a description for an item, type 'add summary for' followed by the item number and a colon. ", "To find out what the description for an item is, type 'describe' followed by the item number. ", "To clear the entire list, type 'clear'."];
 
 
 
-function send2()
-{
-    sendMessage(event.sender.id, {text: "" + item2});
-    send3();
-}
-
-function send3()
-{
-    sendMessage(event.sender.id, {text: "" + item3});
-    send4();
-}
-function send4()
-{
-    sendMessage(event.sender.id, {text: "" + item4});
-    send5();
-}
-function send5()
-{
-    sendMessage(event.sender.id, {text: "" + item5});
-    send6();
-}
-function send6()
-{
-    sendMessage(event.sender.id, {text: "" + item6});
-    send7();
-}
-function send7()
-{
-    sendMessage(event.sender.id, {text: "" + item7});
-}
 
 
 function convert_to_list()
@@ -117,8 +81,10 @@ app.post('/webhook', function (req, res) {
             
             else if (((event.message.text).trim()).substr(0,12) === "instructions")
                 {
-                    sendMessage(event.sender.id, {text: "" + item1});
-                    send2();
+                    for (z = 0; z < instruction_list.length; z++)
+                    {
+                        sendMessage(event.sender.id, {text: "" + instruction_list[z]});
+                    }
                 }
             else if ((event.message.text).substr(0,3) === "add")
             {
