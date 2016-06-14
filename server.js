@@ -89,7 +89,7 @@ app.post('/webhook', function (req, res) {
                 }
             else if ((event.message.text).substr(0,3) === "add")
             {
-                var addition = (event.message.text).substr(3);
+                var addition = ((event.message.text).substr(3)).trim();
                         items.push(addition);
                         item_descriptions.push([]);
                         sendMessage(event.sender.id, {text: "Item added!"});
