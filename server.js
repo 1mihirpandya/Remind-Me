@@ -67,7 +67,6 @@ app.post('/webhook', function (req, res) {
             if ((event.message.text).substr(0,15) === "add summary for")
             {
                 index = parseInt(((event.message.text).substr(((event.message.text).indexOf("for") + 3),((event.message.text).indexOf(":"))).trim())) - 1;
-                sendMessage(event.sender.id, {text: ""+ index});
                 item_descriptions[index].push(((event.message.text).substr((event.message.text).indexOf(":") + 1)).trim());
                 sendMessage(event.sender.id, {text: "Summary added!"});
             }
@@ -78,19 +77,29 @@ app.post('/webhook', function (req, res) {
             
             else if (((event.message.text).trim()).substr(0,12) === "instructions")
                 {
-                    sendMessage(event.sender.id, {text: "You can add items onto your to-do list and descriptions for each item."});
-                    sendMessage(event.sender.id, {text: "To add an item to your to-do list, simply type 'add' before the item's title. "});
-                    sendMessage(event.sender.id, {text: "To remove an item from your to-do list, simply type 'remove' followed by the item's number on the list. "});
-                    sendMessage(event.sender.id, {text: "You can see the entire list and their corresponding numbers by typing 'list'. "});
-                    sendMessage(event.sender.id, {text: "To add a description for an item, type 'add summary for' followed by the item number and a colon. "});
-                    sendMessage(event.sender.id, {text: "To find out what the description for an item is, type 'describe' followed by the item number. "});
-                    sendMessage(event.sender.id, {text: "To clear the entire list, type 'clear'."});
+                    var item1 = "You can add items onto your to-do list and descriptions for each item. ";
+                    var item2 = "To add an item to your to-do list, simply type 'add' before the item's title. ";
+                    var item3 = "To remove an item from your to-do list, simply type 'remove' followed by the item's number on the list. ";
+                    var item4 = "You can see the entire list and their corresponding numbers by typing 'list'. ";
+                    var item5 = "To add a description for an item, type 'add summary for' followed by the item number and a colon. ";
+                    var item6 = "To find out what the description for an item is, type 'describe' followed by the item number. ";
+                    var item7 = "To clear the entire list, type 'clear'.";
+                    var final_instruction = item1 + item2 + item3 + item4 + item5 + item6 + item7;
+                    sendMessage(event.sender.id, {text: "" + final_instruction});
                 }
             else if ((event.message.text).substr(0,3) === "add")
             {
-                items.push((event.message.text).substr(3));
-                item_descriptions.push([]);
-                sendMessage(event.sender.id, {text: "Item added!"});
+                var addition = (event.message.text).substr(3);
+                if (!(addition in items))
+                    {
+                        items.push(addition);
+                        item_descriptions.push([]);
+                        sendMessage(event.sender.id, {text: "Item added!"});
+                    }
+                else
+                    {
+                        sendMessage(event.sender.id, {text: "The item already exists."});
+                    }
             }
             else if (((event.message.text).trim()).substr(0,6) === "remove")
             {
@@ -113,9 +122,16 @@ app.post('/webhook', function (req, res) {
             }
             else if (((event.message.text).trim()).substr(0,8) === "describe")
             {
-                index = parseInt(((event.message.text).split(" "))[1]) - 1;
-                to_do_list = convert_to_summary(index);
-                sendMessage(event.sender.id, {text: to_do_list + ""});
+                if (items.length == 0)
+                    {
+                        sendMessage(event.sender.id, {text: "Sorry! The list is empty."});
+                    }
+                else
+                    {
+                        index = parseInt(((event.message.text).split(" "))[1]) - 1;
+                        to_do_list = convert_to_summary(index);
+                        sendMessage(event.sender.id, {text: to_do_list + ""});
+                    }
             }
             else if (((event.message.text).trim()).substr(0,5) === "clear")
             {
