@@ -77,6 +77,7 @@ app.post('/webhook', function (req, res) {
             
             else if (((event.message.text).trim()).substr(0,12) === "instructions")
                 {
+                    sendMessage(event.sender.id, {text: "You can add items onto your to-do list and descriptions for each item."});
                     sendMessage(event.sender.id, {text: "To add an item to your to-do list, simply type 'add' before the item's title. "});
                     sendMessage(event.sender.id, {text: "To remove an item from your to-do list, simply type 'remove' followed by the item's number on the list. "});
                     sendMessage(event.sender.id, {text: "You can see the entire list and their corresponding numbers by typing 'list'. "});
