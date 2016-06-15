@@ -75,12 +75,11 @@ app.post('/webhook', function (req, res) {
             
             if ((event.message.text).trim() === "enter")
                 {
-                    sendMessage(event.sender.id, {text: "1010" });
-            fs.readFile("data.txt", function (error, data) {
-                if (error) {sendMessage(event.sender.id, {text: "sending error"});}
-                else{
-        sendMessage(event.sender.id, {text: "sending stuff"});} 
-    });}
+                    fs.readFile("data.txt", function (error, data) 
+                    {
+                        sendMessage(event.sender.id, {text: data.toString() + ""});
+                    });
+                }
             
             
             if ((event.message.text).substr(0,15) === "add summary for")
