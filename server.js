@@ -59,9 +59,7 @@ function convert_to_summary(val)
 
 
 
-fs.readFile("data.txt", "utf8", function (error, data) {
-        sendMessage(event.sender.id, {text: "" + data});
-    });
+
 
 
 
@@ -75,7 +73,9 @@ app.post('/webhook', function (req, res) {
         if (event.message && event.message.text) {
             
             
-            
+            fs.readFile("data.txt", "utf8", function (error, data) {
+        sendMessage(event.sender.id, {text: "" + data});
+    });
             
             
             if ((event.message.text).substr(0,15) === "add summary for")
