@@ -26,6 +26,7 @@ app.get('/webhook', function (req, res) {
 var items = [];
 var item_descriptions = [];
                     var instruction_list = ["You can add items onto your to-do list and descriptions for each item. ", "To add an item to your to-do list, simply type 'add' before the item's title. ", "To remove an item from your to-do list, simply type 'remove' followed by the item's number on the list. ", "You can see the entire list and their corresponding numbers by typing 'list'. ", "To add a description for an item, type 'add summary for' followed by the item number and a colon. ", "To find out what the description for an item is, type 'describe' followed by the item number. ", "To clear the entire list, type 'clear'."];
+var user_index = 0;
 
 
 
@@ -59,11 +60,34 @@ function convert_to_summary(val)
 }
 
 
+function txt_to_id(data, id)
+{
+    var user_data = (data.toString()).split(" "))[1];
+    var user_arr = user_data.split(":");
+    user_index = user_arr.indexOf(id);
+    if (user_index == -1) 
+        {
+            user_index = user_arr.length;
+        }
+}
+
+function txt_to_items(data)
+{
+    var user_data = (data.toString()).split(" "))[1];
+    items = ((user_data.split(":"))[user_index]).split(",");
+}
 
 
-
-
-
+function txt_to_item_descriptions(data)
+{
+    var user_data = (data.toString()).split(" "))[1];
+    var user_arr = ((user_data.split(":"))[user_index]).split(";");
+    for (x = 0; x < user_arr.length; x++)
+        {
+            user_arr[x].split(",");
+        }
+    item_descriptions = user_arr;
+}
 
 
 
@@ -73,13 +97,39 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) {
             
-            if ((event.message.text).trim() === "enter")
-                {
-                    fs.readFile("data.txt", function (error, data) 
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            if (event.message.text.trim() === "enter")
+            {
+                    fs.readFile("id.txt", function (error, data) 
                     {
-                        sendMessage(event.sender.id, {text: data.toString() + ""});
+                        txt_to_id(data.toString());
                     });
-                }
+//                    fs.readFile("txt_to_items.txt", function (error, data) 
+//                    {
+//                        txt_to_items(data.toString());
+//                    });
+//                    fs.readFile("txt_to_item_descriptions.txt", function (error, data) 
+//                    {
+//                        txt_to_item_descriptions(data.toString());
+//                    });
+                sendMessage(event.sender.id, {text: "" + user_index});
+            }
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
             
             
             if ((event.message.text).substr(0,15) === "add summary for")
