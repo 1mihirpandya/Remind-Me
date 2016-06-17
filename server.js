@@ -62,25 +62,28 @@ function convert_to_summary(val)
 
 function txt_to_id(data, id)
 {
-    var user_data = (data.toString()).split(" "))[1];
+    if (data.trim() === "") {user_index = 0;}
+    else {
+    var user_data = data.split(" "))[1];
     var user_arr = user_data.split(":");
     user_index = user_arr.indexOf(id);
     if (user_index == -1) 
         {
             user_index = user_arr.length;
         }
+    }
 }
 
 function txt_to_items(data)
 {
-    var user_data = (data.toString()).split(" "))[1];
+    var user_data = (data).split(" "))[1];
     items = ((user_data.split(":"))[user_index]).split(",");
 }
 
 
 function txt_to_item_descriptions(data)
 {
-    var user_data = (data.toString()).split(" "))[1];
+    var user_data = data.split(" "))[1];
     var user_arr = ((user_data.split(":"))[user_index]).split(";");
     for (x = 0; x < user_arr.length; x++)
         {
