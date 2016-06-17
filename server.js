@@ -105,11 +105,11 @@ app.post('/webhook', function (req, res) {
             //
             //
             //
-            if (event.message.text.trim() === "enter")
+            if ((event.message.text).trim() === "enter")
             {
                     fs.readFile("id.txt", function (error, data) 
                     {
-                        txt_to_id(data.toString());
+                        txt_to_id(data.toString(), event.sender.id);
                     });
 //                    fs.readFile("txt_to_items.txt", function (error, data) 
 //                    {
