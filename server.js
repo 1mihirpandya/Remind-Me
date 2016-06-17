@@ -113,6 +113,7 @@ app.post('/webhook', function (req, res) {
             //
             if ((event.message.text).trim() === "enter")
             {
+                sendMessage(event.sender.id, {text: "hello"});
                     fs.readFile("id.txt", function (error, data) 
                     {
                         sendMessage(event.sender.id, {text: "hello"});
