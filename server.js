@@ -112,7 +112,7 @@ app.post('/webhook', function (req, res) {
             {
                     fs.readFile("id.txt", function (error, data) 
                     {
-                        sendMessage(event.sender.id, {text: "hello"});
+                        sendMessage(event.sender.id, {text: "" + data.toString()});
                         //txt_to_id(data.toString(), event.sender.id);
                     });
 //                    fs.readFile("txt_to_items.txt", function (error, data) 
