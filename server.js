@@ -62,14 +62,13 @@ function convert_to_summary(val)
 
 function txt_to_id(data, id)
 {
-    if (data.trim() === "") 
+    if (data === "") 
     {
         user_index = 0;
     }
     else 
     {
-        var user_data = data.split(" "))[1];
-        var user_arr = user_data.split(":");
+        var user_arr = data.split(":");
         user_index = user_arr.indexOf(id);
         if (user_index == -1) 
             {
