@@ -60,19 +60,23 @@ function convert_to_summary(val)
 }
 
 
-//function txt_to_id(data, id)
-//{
-//    if (data.trim() === "") {user_index = 0;}
-//    else {
-//    var user_data = data.split(" "))[1];
-//    var user_arr = user_data.split(":");
-//    user_index = user_arr.indexOf(id);
-//    if (user_index == -1) 
-//        {
-//            user_index = user_arr.length;
-//        }
-//    }
-//}
+function txt_to_id(data, id)
+{
+    if (data.trim() === "") 
+    {
+        user_index = 0;
+    }
+    else 
+    {
+        var user_data = data.split(" "))[1];
+        var user_arr = user_data.split(":");
+        user_index = user_arr.indexOf(id);
+        if (user_index == -1) 
+            {
+                user_index = user_arr.length;
+            }
+    }
+}
 //
 //function txt_to_items(data)
 //{
@@ -112,8 +116,9 @@ app.post('/webhook', function (req, res) {
             {
                     fs.readFile("id.txt", function (error, data) 
                     {
-                        sendMessage(event.sender.id, {text: "" + data});
-                        //txt_to_id(data.toString(), event.sender.id);
+                        
+                        txt_to_id(data, event.sender.id);
+                        sendMessage(event.sender.id, {text: "" + user_index});
                     });
 //                    fs.readFile("txt_to_items.txt", function (error, data) 
 //                    {
