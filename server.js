@@ -89,7 +89,7 @@ function txt_to_items(data)
             items_all = (data.split(":"));
             for (x = 0; x < items_all.length; x++)
             {
-                items_all[x].split(",");
+                items_all[x] = items_all[x].split(",");
             }
             items = items_all[user_index];
         }
