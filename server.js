@@ -83,6 +83,7 @@ function txt_to_items(data)
     if (data === "")
         {
             items_all = [];
+            items = [];
         }
     else
         {
@@ -125,15 +126,14 @@ app.post('/webhook', function (req, res) {
             //
             if ((event.message.text).trim() === "enter")
             {
-                    fs.readFile("id.txt", function (error, data) 
+//                    fs.readFile("id.txt", function (error, data) 
+//                    {
+//                        txt_to_id(data.toString(), event.sender.id);
+//                    });
+                    fs.readFile("items.txt", function (error, data) 
                     {
-                        txt_to_id(data.toString(), event.sender.id);
-                    });
-                    fs.readFile("txt_to_items.txt", function (error, data) 
-                    {
-                        sendMessage(event.sender.id, {text: "hello"});
                         txt_to_items(data.toString());
-                        to_do_list = convert_to_list();
+                        var to_do_list = convert_to_list();
                         sendMessage(event.sender.id, {text: "" + to_do_list});
                     });
 //                    fs.readFile("txt_to_item_descriptions.txt", function (error, data) 
@@ -206,7 +206,7 @@ app.post('/webhook', function (req, res) {
                 else
                     {
                         index = parseInt(((event.message.text).split(" "))[1]) - 1;
-                        to_do_list = convert_to_summary(index);
+                        var to_do_list = convert_to_summary(index);
                         sendMessage(event.sender.id, {text: to_do_list + ""});
                     }
             }
