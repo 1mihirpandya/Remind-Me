@@ -95,18 +95,29 @@ function txt_to_items(data)
             items = items_all[user_index];
         }
 }
-//
-//
-//function txt_to_item_descriptions(data)
-//{
-//    var user_data = data.split(" "))[1];
-//    var user_arr = ((user_data.split(":"))[user_index]).split(";");
-//    for (x = 0; x < user_arr.length; x++)
-//        {
-//            user_arr[x].split(",");
-//        }
-//    item_descriptions = user_arr;
-//}
+
+
+function txt_to_item_descriptions(data)
+{
+    if (data === "")
+        {
+            item_descriptions_all = [];
+            item_descriptions = [];
+        }
+    else
+        {
+            item_descriptions_all = (data.split(":"));
+            for (x = 0; x < item_descriptions_all.length; x++)
+            {
+                item_descriptions_all[x] = item_descriptions_all[x].split(",");
+                for (y = 0; y < item_descriptions_all[x].length; y++)
+                {
+                    item_descriptions_all[x][y] = item_descriptions_all[x][y].split(";");
+                }
+            }
+            item_descriptions = item_descriptions_all[user_index];
+        }
+}
 
 
 
@@ -124,24 +135,21 @@ app.post('/webhook', function (req, res) {
             //
             //
             //
-            if ((event.message.text).trim() === "enter")
-            {
-//                    fs.readFile("id.txt", function (error, data) 
-//                    {
-//                        txt_to_id(data.toString(), event.sender.id);
-//                    });
+            
+                    fs.readFile("id.txt", function (error, data) 
+                    {
+                        txt_to_id(data.toString(), event.sender.id);
+                    });
                     fs.readFile("items.txt", function (error, data) 
                     {
                         txt_to_items(data.toString());
-                        var to_do_list = convert_to_list();
+                    });
+                    fs.readFile("item_descriptions.txt", function (error, data) 
+                    {
+                        txt_to_item_descriptions(data.toString());
+                        var to_do_list = convert_to_summary();
                         sendMessage(event.sender.id, {text: "" + to_do_list});
                     });
-//                    fs.readFile("txt_to_item_descriptions.txt", function (error, data) 
-//                    {
-//                        txt_to_item_descriptions(data.toString());
-//                    });
-                //sendMessage(event.sender.id, {text: "" + user_index});
-            }
             //
             //
             //
