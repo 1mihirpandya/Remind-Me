@@ -133,7 +133,8 @@ app.post('/webhook', function (req, res) {
                     {
                         sendMessage(event.sender.id, {text: "hello"});
                         txt_to_items(data.toString());
-                        //sendMessage(event.sender.id, {text: "" + convert_to_list()});
+                        to_do_list = convert_to_list();
+                        sendMessage(event.sender.id, {text: "" + to_do_list});
                     });
 //                    fs.readFile("txt_to_item_descriptions.txt", function (error, data) 
 //                    {
