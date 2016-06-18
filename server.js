@@ -22,10 +22,11 @@ app.get('/webhook', function (req, res) {
     }
 });
 
-
+var items_all = [];
 var items = [];
+var item_descriptions_all = [];
 var item_descriptions = [];
-                    var instruction_list = ["You can add items onto your to-do list and descriptions for each item. ", "To add an item to your to-do list, simply type 'add' before the item's title. ", "To remove an item from your to-do list, simply type 'remove' followed by the item's number on the list. ", "You can see the entire list and their corresponding numbers by typing 'list'. ", "To add a description for an item, type 'add summary for' followed by the item number and a colon. ", "To find out what the description for an item is, type 'describe' followed by the item number. ", "To clear the entire list, type 'clear'."];
+var instruction_list = ["You can add items onto your to-do list and descriptions for each item. ", "To add an item to your to-do list, simply type 'add' before the item's title. ", "To remove an item from your to-do list, simply type 'remove' followed by the item's number on the list. ", "You can see the entire list and their corresponding numbers by typing 'list'. ", "To add a description for an item, type 'add summary for' followed by the item number and a colon. ", "To find out what the description for an item is, type 'describe' followed by the item number. ", "To clear the entire list, type 'clear'."];
 var user_index = 0;
 
 
@@ -76,12 +77,23 @@ function txt_to_id(data, id)
             }
     }
 }
-//
-//function txt_to_items(data)
-//{
-//    var user_data = (data).split(" "))[1];
-//    items = ((user_data.split(":"))[user_index]).split(",");
-//}
+
+function txt_to_items(data)
+{
+    if (data === "")
+        {
+            items_all = [];
+        }
+    else
+        {
+            items_all = (data.split(":"));
+            for (x = 0; x < items_all.length; x++)
+            {
+                items_all[x].split(",");
+            }
+            items = items_all[user_index];
+        }
+}
 //
 //
 //function txt_to_item_descriptions(data)
@@ -116,12 +128,12 @@ app.post('/webhook', function (req, res) {
                     fs.readFile("id.txt", function (error, data) 
                     {
                         txt_to_id(data.toString(), event.sender.id);
-                        sendMessage(event.sender.id, {text: "" + user_index});
                     });
-//                    fs.readFile("txt_to_items.txt", function (error, data) 
-//                    {
-//                        txt_to_items(data.toString());
-//                    });
+                    fs.readFile("txt_to_items.txt", function (error, data) 
+                    {
+                        txt_to_items(data.toString());
+                        sendMessage(event.sender.id, {text: "" + convert_to_list()});
+                    });
 //                    fs.readFile("txt_to_item_descriptions.txt", function (error, data) 
 //                    {
 //                        txt_to_item_descriptions(data.toString());
