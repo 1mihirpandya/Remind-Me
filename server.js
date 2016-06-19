@@ -194,9 +194,10 @@ function read_data(id)
 }
 
 function send_data(id)
-{sendMessage(id, {text: "downloaded"});
+{
             var final_items = convert_items();
             var final_item_descriptions = convert_item_descriptions();
+            sendMessage(id, {text: "downloaded"});
             fs.writeFile('items.txt', final_items, function (err) 
             {
                 sendMessage(id, {text: "downded"});
@@ -319,8 +320,8 @@ app.post('/webhook', function (req, res) {
             }
             
     }
-                send_data(event.sender.id);
-            sendMessage(event.sender.id, {text: "!"});
+    send_data(event.sender.id);
+    sendMessage(event.sender.id, {text: "!"});
     res.sendStatus(200);
 });
 
