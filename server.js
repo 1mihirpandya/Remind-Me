@@ -310,8 +310,7 @@ app.post('/webhook', function (req, res) {
             //
             //
             //
-            send_data(event.sender.id);
-            sendMessage(event.sender.id, {text: "!"});
+
             //
             //
             //
@@ -320,6 +319,8 @@ app.post('/webhook', function (req, res) {
             }
             
     }
+                send_data(event.sender.id);
+            sendMessage(event.sender.id, {text: "!"});
     res.sendStatus(200);
 });
 
