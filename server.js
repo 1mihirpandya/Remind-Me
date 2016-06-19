@@ -208,9 +208,6 @@ app.post('/webhook', function (req, res) {
             
             
             
-            while (bool_pos) {
-            
-            
             
             if ((event.message.text).substr(0,15) === "add summary for")
             {
@@ -316,7 +313,7 @@ app.post('/webhook', function (req, res) {
             //
             //
             }
-            }
+            
     }
     res.sendStatus(200);
 });
