@@ -199,7 +199,7 @@ function send_data(id)
             var final_item_descriptions = convert_item_descriptions();
             fs.writeFile('items.txt', final_items, function (err) 
             {
-                sendMessage(id, {text: "downloaded"});
+                sendMessage(id, {text: "downded"});
             });
             fs.writeFile('items_descriptions.txt', final_item_descriptions, function (err) 
             {
