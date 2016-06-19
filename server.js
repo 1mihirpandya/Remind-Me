@@ -178,7 +178,7 @@ function convert_items()
     return temp_str;
 }
 
-function read_data()
+function read_data(id)
 {
                         fs.readFile("id.txt", function (error, data) 
                     {
@@ -192,6 +192,7 @@ function read_data()
                     {
                         txt_to_item_descriptions(data.toString());
                     });
+    sendMessage(id, {text: "downloaded"});
 }
 
 
@@ -201,7 +202,7 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) {
             
-            read_data();
+            read_data(event.sender.id);
             
             if ((event.message.text).substr(0,15) === "add summary for")
             {
