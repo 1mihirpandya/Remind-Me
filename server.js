@@ -196,17 +196,12 @@ function read_data(id)
 function send_data(id)
 {
             var final_items = convert_items();
-            sendMessage(id, {text: "downloaded"});
             var final_item_descriptions = convert_item_descriptions();
-            sendMessage(id, {text: "downloaded"});
             fs.writeFile('items.txt', final_items, function (err) 
             {
-                sendMessage(id, {text: "downded"});
             });
             fs.writeFile('items_descriptions.txt', final_item_descriptions, function (err) 
             {
-                if (err) return console.log(err);
-                //console.log('Hello World > helloworld.txt');
             });
 }
 
@@ -268,7 +263,7 @@ app.post('/webhook', function (req, res) {
                     sendMessage(event.sender.id, {text: "Sorry! That item doesn't exist."});
                 }
             }
-            else if (((event.message.text).trim()).trim() === "list")
+            else if (((event.message.text).trim()).substr(0,4) === "list")
             {
                 to_do_list = convert_to_list();
                 sendMessage(event.sender.id, {text: to_do_list + ""});
@@ -321,8 +316,7 @@ app.post('/webhook', function (req, res) {
             }
             
     }
-    send_data(event.sender.id);
-    sendMessage(event.sender.id, {text: "!"});
+    send_data();
     res.sendStatus(200);
 });
 
