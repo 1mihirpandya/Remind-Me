@@ -184,14 +184,14 @@ function read_data(id)
                     {
                         txt_to_id(data.toString(), event.sender.id);
                     });
-//                    fs.readFile("items.txt", function (error, data) 
-//                    {
-//                        txt_to_items(data.toString());
-//                    });
-//                    fs.readFile("item_descriptions.txt", function (error, data) 
-//                    {
-//                        txt_to_item_descriptions(data.toString());
-//                    });
+                    fs.readFile("items.txt", function (error, data) 
+                    {
+                        txt_to_items(data.toString());
+                    });
+                    fs.readFile("item_descriptions.txt", function (error, data) 
+                    {
+                        txt_to_item_descriptions(data.toString());
+                    });
     
 }
 
@@ -203,11 +203,17 @@ app.post('/webhook', function (req, res) {
         if (event.message && event.message.text) {
             
             //read_data(event.sender.id);
-                fs.readFile("id.txt", function (error, data) 
+                        fs.readFile("id.txt", function (error, data) 
                     {
-                    sendMessage(event.sender.id, {text: "Sumed!"});
                         txt_to_id(data.toString(), event.sender.id);
-                    
+                    });
+                    fs.readFile("items.txt", function (error, data) 
+                    {
+                        txt_to_items(data.toString());
+                    });
+                    fs.readFile("item_descriptions.txt", function (error, data) 
+                    {
+                        txt_to_item_descriptions(data.toString());
                     });
             
             
