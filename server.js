@@ -176,8 +176,8 @@ function convert_items()
     return temp_str;
 }
 
-function read_data(id)
-{sendMessage(id, {text: "downloaded"});
+function read_data()
+{//sendMessage(id, {text: "downloaded"});
                         fs.readFile("id.txt", function (error, data) 
                     {
                         txt_to_id(data.toString(), event.sender.id);
@@ -200,20 +200,8 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) {
             
-            //read_data(event.sender.id);
-                        fs.readFile("id.txt", function (error, data) 
-                    {
-                        txt_to_id(data.toString(), event.sender.id);
-                    });
-                    fs.readFile("items.txt", function (error, data) 
-                    {
-                        txt_to_items(data.toString());
-                        sendMessage(event.sender.id, {text: "item!" + items.toString()});
-                    });
-                    fs.readFile("item_descriptions.txt", function (error, data) 
-                    {
-                        txt_to_item_descriptions(data.toString());
-                    });
+            read_data();
+            sendMessage(event.sender.id, {text: "!"});
             
             
             if ((event.message.text).substr(0,15) === "add summary for")
