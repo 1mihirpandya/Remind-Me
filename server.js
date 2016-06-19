@@ -178,23 +178,9 @@ function convert_items()
     return temp_str;
 }
 
-
-app.post('/webhook', function (req, res) {
-    var events = req.body.entry[0].messaging;
-    for (i = 0; i < events.length; i++) {
-        var event = events[i];
-        if (event.message && event.message.text) {
-            
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            
-                    fs.readFile("id.txt", function (error, data) 
+function read_data()
+{
+                        fs.readFile("id.txt", function (error, data) 
                     {
                         txt_to_id(data.toString(), event.sender.id);
                     });
@@ -206,16 +192,16 @@ app.post('/webhook', function (req, res) {
                     {
                         txt_to_item_descriptions(data.toString());
                     });
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
+}
+
+
+app.post('/webhook', function (req, res) {
+    var events = req.body.entry[0].messaging;
+    for (i = 0; i < events.length; i++) {
+        var event = events[i];
+        if (event.message && event.message.text) {
             
+            read_data();
             
             if ((event.message.text).substr(0,15) === "add summary for")
             {
