@@ -303,12 +303,17 @@ app.post('/webhook', function (req, res) {
             //
             //
             //
-            final_items = convert_items();
-            final_item_descriptions = convert_item_descriptions();
-            fs.writeFile('items.txt', 'Hello World!', function (err) 
+            var final_items = convert_items();
+            var final_item_descriptions = convert_item_descriptions();
+            fs.writeFile('items.txt', final_items, function (err) 
             {
                 if (err) return console.log(err);
-                console.log('Hello World > helloworld.txt');
+                //console.log('Hello World > helloworld.txt');
+            });
+            fs.writeFile('items_descriptions.txt', final_item_descriptions, function (err) 
+            {
+                if (err) return console.log(err);
+                //console.log('Hello World > helloworld.txt');
             });
             //
             //
