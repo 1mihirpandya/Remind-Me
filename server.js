@@ -82,8 +82,7 @@ function txt_to_items(data)
 {
     if (data === "")
         {
-            items_all = [];
-            items = [];
+
         }
     else
         {
@@ -101,8 +100,7 @@ function txt_to_item_descriptions(data)
 {
     if (data === "")
         {
-            item_descriptions_all = [];
-            item_descriptions = [];
+
         }
     else
         {
