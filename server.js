@@ -179,7 +179,7 @@ function convert_items()
 }
 
 function read_data(id)
-{
+{sendMessage(id, {text: "downloaded"});
                         fs.readFile("id.txt", function (error, data) 
                     {
                         txt_to_id(data.toString(), event.sender.id);
@@ -192,7 +192,7 @@ function read_data(id)
 //                    {
 //                        txt_to_item_descriptions(data.toString());
 //                    });
-    sendMessage(id, {text: "downloaded"});
+    
 }
 
 
