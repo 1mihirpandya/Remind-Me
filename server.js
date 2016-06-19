@@ -119,6 +119,64 @@ function txt_to_item_descriptions(data)
         }
 }
 
+function convert_items()
+{
+    items_copy = items_all;
+    temp_str = "";
+    for (x = 0; x < items_copy.length; x++)
+        {
+            for (y = 0; y < items_copy[x].length; y++)
+                {
+                	if (y != 0)
+                		{
+                    		temp_str = temp_str + "," + items_copy[x][y];
+                		}
+                	else
+                		{
+                			temp_str = temp_str + items_copy[x][y];
+                		}
+                }
+            if (x != items_copy.length - 1)
+            	{
+            		temp_str = temp_str + ":";
+            	}
+        }
+    return temp_str;
+}
+
+
+function convert_items()
+{
+    items_copy = item_descriptions_all;
+    temp_str = "";
+    for (x = 0; x < items_copy.length; x++)
+        {
+            for (y = 0; y < items_copy[x].length; y++)
+                {
+                	for (z = 0; z < items_copy[x][y].length; z++)
+                		{
+                			console.log(temp_str);
+							if (z != 0)
+                				{
+                    				temp_str = temp_str + ";" + items_copy[x][y][z];
+                				}
+                			else
+                				{
+                					temp_str = temp_str + items_copy[x][y][z];
+                				}
+                		}
+                	if (y != items_copy.length - 1)
+                		{
+                    		temp_str = temp_str + ",";
+                		}
+                }
+            if (x != items_copy.length - 1)
+            	{
+            		temp_str = temp_str + ":";
+            	}
+        }
+    return temp_str;
+}
 
 
 app.post('/webhook', function (req, res) {
@@ -147,8 +205,6 @@ app.post('/webhook', function (req, res) {
                     fs.readFile("item_descriptions.txt", function (error, data) 
                     {
                         txt_to_item_descriptions(data.toString());
-                        var to_do_list = convert_to_summary();
-                        sendMessage(event.sender.id, {text: "" + to_do_list});
                     });
             //
             //
@@ -166,6 +222,7 @@ app.post('/webhook', function (req, res) {
                 index = parseInt(((event.message.text).substr(((event.message.text).indexOf("for") + 3),((event.message.text).indexOf(":"))).trim())) - 1;
                 item_descriptions[index].push(((event.message.text).substr((event.message.text).indexOf(":") + 1)).trim());
                 sendMessage(event.sender.id, {text: "Summary added!"});
+                item_descriptions_all[user_index] = item_descriptions;
             }
             
             
@@ -182,9 +239,10 @@ app.post('/webhook', function (req, res) {
             else if ((event.message.text).substr(0,3) === "add")
             {
                 var addition = ((event.message.text).substr(3)).trim();
-                        items.push(addition);
-                        item_descriptions.push([]);
-                        sendMessage(event.sender.id, {text: "Item added!"});
+                items.push(addition);
+                item_descriptions.push([]);
+                sendMessage(event.sender.id, {text: "Item added!"});
+                items_all[user_index] = items;
             }
             else if (((event.message.text).trim()).substr(0,6) === "remove")
             {
@@ -194,6 +252,7 @@ app.post('/webhook', function (req, res) {
                     items.splice(index, 1);
                     item_descriptions.splice(index, 1);
                     sendMessage(event.sender.id, {text: "Item removed!"});
+                    items_all[user_index] = items;
                 }
                 else
                 {
@@ -228,14 +287,34 @@ app.post('/webhook', function (req, res) {
                 {
                     items = [];
                     item_descriptions = [];
+                    items_all[user_index] = items;
+                    item_descriptions_all[user_index] = item_descriptions;
                     sendMessage(event.sender.id, {text: "To-do list cleared!"});
                 }
                 
             }
             else
-                {
-                    sendMessage(event.sender.id, {text: "Sorry! Your command was not recognized."});
-                }
+            {
+                sendMessage(event.sender.id, {text: "Sorry! Your command was not recognized."});
+            }
+            //
+            //
+            //
+            //
+            //
+            //
+            final_items = convert_items();
+            final_item_descriptions = convert_item_descriptions();
+            fs.writeFile('items.txt', 'Hello World!', function (err) 
+            {
+                if (err) return console.log(err);
+                console.log('Hello World > helloworld.txt');
+            });
+            //
+            //
+            //
+            //
+            //
         }
     }
     res.sendStatus(200);
