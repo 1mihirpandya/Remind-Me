@@ -307,6 +307,7 @@ app.post('/webhook', function (req, res) {
             //
             //
             //
+            sendMessage(event.sender.id, {text: "" + items_all});
             send_data();
             //
             //
