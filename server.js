@@ -307,7 +307,7 @@ app.post('/webhook', function (req, res) {
             //
             //
             //
-
+            send_data();
             //
             //
             //
@@ -316,7 +316,7 @@ app.post('/webhook', function (req, res) {
             }
             
     }
-    send_data();
+    
     res.sendStatus(200);
 });
 
