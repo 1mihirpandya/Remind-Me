@@ -309,6 +309,10 @@ app.post('/webhook', function (req, res) {
             //
             sendMessage(event.sender.id, {text: "" + items_all});
             send_data();
+            fs.readFile("items.txt", function (error, data) 
+            {
+                sendMessage(event.sender.id, {text: "" + data});
+            });
             //
             //
             //
