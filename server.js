@@ -184,14 +184,14 @@ function read_data(id)
                     {
                         txt_to_id(data.toString(), event.sender.id);
                     });
-                    fs.readFile("items.txt", function (error, data) 
-                    {
-                        txt_to_items(data.toString());
-                    });
-                    fs.readFile("item_descriptions.txt", function (error, data) 
-                    {
-                        txt_to_item_descriptions(data.toString());
-                    });
+//                    fs.readFile("items.txt", function (error, data) 
+//                    {
+//                        txt_to_items(data.toString());
+//                    });
+//                    fs.readFile("item_descriptions.txt", function (error, data) 
+//                    {
+//                        txt_to_item_descriptions(data.toString());
+//                    });
     sendMessage(id, {text: "downloaded"});
 }
 
@@ -202,7 +202,7 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) {
             
-            //read_data(event.sender.id);
+            read_data(event.sender.id);
             
             if ((event.message.text).substr(0,15) === "add summary for")
             {
