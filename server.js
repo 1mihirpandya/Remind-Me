@@ -176,11 +176,11 @@ function convert_items()
     return temp_str;
 }
 
-function read_data()
+function read_data(id)
 {//sendMessage(id, {text: "downloaded"});
                         fs.readFile("id.txt", function (error, data) 
                     {
-                        txt_to_id(data.toString(), event.sender.id);
+                        txt_to_id(data.toString(), id);
                     });
                     fs.readFile("items.txt", function (error, data) 
                     {
@@ -200,8 +200,16 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) {
             
-            read_data();
+            
+        read_data(event.sender.id);
+            
+            
             sendMessage(event.sender.id, {text: "!"});
+            
+            
+            
+            while (bool_pos) {
+            
             
             
             if ((event.message.text).substr(0,15) === "add summary for")
@@ -307,7 +315,8 @@ app.post('/webhook', function (req, res) {
             //
             //
             //
-        }
+            }
+            }
     }
     res.sendStatus(200);
 });
